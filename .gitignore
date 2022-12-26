@@ -3,5 +3,6 @@
 /public_html/bundles/
 /cache/
 /log/
+/media/
 /vendor/
 ###< symfony/framework-bundle ###
