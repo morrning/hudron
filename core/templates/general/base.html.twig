@@ -268,20 +268,7 @@
 
         <!-- container opened -->
         <div class="container mt-2">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            {{ block('title') }}
-                        </div>
-                        <div class="card-body">
-                            {% block plugin_body %}{% endblock %}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+            {% block plugin_body %}{% endblock %}
         </div>
         <!-- Container closed -->
 

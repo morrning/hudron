@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['mobile'], message: 'There is already an account with this mobile number')]
+#[UniqueEntity(fields: ['codemeli'], message: 'There is already an account with this codemeli')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -31,6 +34,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\Column(length: 10, unique: true)]
+    private ?string $codemeli = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $birthday = null;
+
+    #[ORM\Column(length: 11, unique: true)]
+    private ?string $mobile = null;
 
     public function getId(): ?int
     {
@@ -110,6 +122,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getCodemeli(): ?string
+    {
+        return $this->codemeli;
+    }
+
+    public function setCodemeli(string $codemeli): self
+    {
+        $this->codemeli = $codemeli;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?string
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(string $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile(string $mobile): self
+    {
+        $this->mobile = $mobile;
 
         return $this;
     }

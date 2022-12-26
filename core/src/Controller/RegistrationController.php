@@ -50,14 +50,14 @@ class RegistrationController extends AbstractController
                     ->from(new Address('support@hudron.ir', 'Hudron Support team'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('user/registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('general_home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('user/registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
