@@ -9,8 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    #[Route('/login/{msg}', name: 'app_login')]
+    public function index(AuthenticationUtils $authenticationUtils,$msg = 'nothing'): Response
       {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -21,6 +21,7 @@ class LoginController extends AbstractController
         return $this->render('user/login/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
+            'msg' => $msg
         ]);
     }
 

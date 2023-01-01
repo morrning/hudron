@@ -34,6 +34,7 @@ Birthday: تاریخ تولد
 Codemeli: کد ملی
 Mobile: تلفن همراه
 Type: نوع فعالیت
+Captcha: عبارت امنیتی
 app:
   home: صفحه نخست
   about: درباره ما

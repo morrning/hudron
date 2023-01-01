@@ -11,3 +11,4 @@ blog.img.notvalid: نوع فایل ارسال شده صحیح نیست.
 Your password should be at least {{ limit }} characters : کلمه عبور باید حداقل {{ limit }} کاراکتر باشد.
 You should agree to our terms.: قبول قوانین جهت ارائه خدمات و استفاده از نرم افزار الزامی است.
 Code does not match : کد وارد شده با تصویر مطابقت ندارد.
+Bad code value: کد وارد شده با تصویر مطابقت ندارد.

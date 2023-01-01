@@ -10,6 +10,18 @@
                 <h1 class="text-primary">{{block('title') }}</h1>
             </div>
             <div class="card-body">
+                {% if msg == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <strong>تبریک! </strong>  عضویت شما تکمیل شد. می‌توانید با اطلاعات حساب کاربری خود وارد شوید.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+                    {% if msg == '2' %}
+                        <div class="alert alert-success alert-dismissible fade show">
+                            کلمه عبور تغییر یافت.هم اکنون می توانید وارد شوید.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
                 {% if error %}
                     <div class="alert alert-danger" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -28,8 +40,9 @@
                     {# If you want to control the URL the user is redirected to on success
                     <input type="hidden" name="_target_path" value="/account"> #}
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            
+                    
                     <button class="btn btn-success mt-2" type="submit">ورود به هادرون</button>
+                    <a class="btn btn-link mt-2" href="{{ path('app_user_forget_password') }}">فراموشی کلمه عبور</a>
                     <a class="btn btn-link mt-2" href="{{ path('app_register') }}">حساب کاربری ندارید؟ عضو شوید!</a>
                 </form>
             </div>

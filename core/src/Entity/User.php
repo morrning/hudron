@@ -44,6 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 11, unique: true)]
     private ?string $mobile = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(length: 25, nullable: true)]
+    private ?string $resetValidTime = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -158,6 +164,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMobile(string $mobile): self
     {
         $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getResetValidTime(): ?string
+    {
+        return $this->resetValidTime;
+    }
+
+    public function setResetValidTime(?string $resetValidTime): self
+    {
+        $this->resetValidTime = $resetValidTime;
 
         return $this;
     }
