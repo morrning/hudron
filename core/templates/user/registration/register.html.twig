@@ -15,6 +15,7 @@
                 {% endfor %}
 
             {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.nameandfamily) }}
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.mobile) }}
                 {{ form_row(registrationForm.codemeli) }}

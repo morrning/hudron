@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 25, nullable: true)]
     private ?string $resetValidTime = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nameandfamily = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +191,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetValidTime(?string $resetValidTime): self
     {
         $this->resetValidTime = $resetValidTime;
+
+        return $this;
+    }
+
+    public function getNameandfamily(): ?string
+    {
+        return $this->nameandfamily;
+    }
+
+    public function setNameandfamily(string $nameandfamily): self
+    {
+        $this->nameandfamily = $nameandfamily;
 
         return $this;
     }

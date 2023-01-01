@@ -15,9 +15,10 @@ class GeneralController extends AbstractController
             'controller_name' => 'GeneralController',
         ]);
     }
-    #[Route('/test', name: 'general_home2')]
+    #[Route('/faq', name: 'general_faq')]
     public function general_home2(): Response
     {
+        
         return $this->render('general/index.html.twig', [
             'controller_name' => 'GeneralController',
         ]);
