@@ -1,0 +1,59 @@
+{% extends 'general/base.html.twig' %}
+
+{% block plugin_body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 mb-2">
+                <div class="card mb-2">
+                    <div class="card-header bg-primary text-light">
+                        <i class="bi bi-person"></i>
+                        {{ app.user.nameandfamily }}
+                    </div>
+                    <div class="card-body">
+                        <img class="rounded float-start" style="height: 80px;" src="{{ asset('https://www.gravatar.com/avatar/' ~ twigFunctions.gravatarHash(app.user.email)) }}" alt="">
+                        <ul class="float-start">
+                            <li>
+                                <a href="{{ path('general_home') }}">
+                                    تعداد کسب‌و‌کارها:
+                                    {{ EntityMGR.findBy('\\App\\Entity\\Business',{'owner':app.user}) | length }}
+                                </a>
+                            </li>
+                            <li>
+                                نوع اکانت:
+                                <span class="text-success">
+                                   رایگان
+                                </span>
+                            </li>
+                            <li>
+                                تاریخ عضویت:
+                                <span class="text-success">{{ Jdate.jdate('d/F/Y',app.user.dateRegister) }}</span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        امکانات
+                    </a>
+                    <a href="{{ path('app_user_profile',{'res':0}) }}" class="list-group-item list-group-item-action">پروفایل کاربری</a>
+                    
+                    <a href="{{ path('app_user_profile',{'res':0}) }}" class="list-group-item list-group-item-action">سوابق خرید</a>
+                    <a href="{{ path('app_user_profile',{'res':0}) }}" class="list-group-item list-group-item-action">تغییر کلمه عبور</a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        {{ block('title') }}
+                    </div>
+                    <div class="card-body">
+                        {% block user_body %}{% endblock %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

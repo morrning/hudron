@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -52,6 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $nameandfamily = null;
+
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Business::class, orphanRemoval: true)]
+    private Collection $businesses;
+
+    #[ORM\Column(length: 15)]
+    private ?string $dateRegister = null;
+
+    public function __construct()
+    {
+        $this->businesses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -203,6 +217,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNameandfamily(string $nameandfamily): self
     {
         $this->nameandfamily = $nameandfamily;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Business>
+     */
+    public function getBusinesses(): Collection
+    {
+        return $this->businesses;
+    }
+
+    public function addBusiness(Business $business): self
+    {
+        if (!$this->businesses->contains($business)) {
+            $this->businesses->add($business);
+            $business->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBusiness(Business $business): self
+    {
+        if ($this->businesses->removeElement($business)) {
+            // set the owning side to null (unless already changed)
+            if ($business->getOwner() === $this) {
+                $business->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDateRegister(): ?string
+    {
+        return $this->dateRegister;
+    }
+
+    public function setDateRegister(string $dateRegister): self
+    {
+        $this->dateRegister = $dateRegister;
 
         return $this;
     }

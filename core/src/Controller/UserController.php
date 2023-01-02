@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use App\Form\UserEditType;
 class UserController extends AbstractController
 {
      /**
@@ -133,6 +134,31 @@ class UserController extends AbstractController
         }
         return $this->render('user/set-password.html.twig', [
             'form'=>$form->createView(),
+        ]);
+    }
+
+    #[Route('/app/user/profile/{res}', name: 'app_user_profile')]
+    public function app_user_profile($res = 'nothing',Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserEditType::class,$this->getUser(),[
+            'action'=>$this->generateUrl('app_user_profile',['res'=>0]),
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $response['result'] = 1;
+            $response['swal'] = [
+                'text'=>'با موفقیت ثبت شد.',
+                'confirmButtonText'=>'قبول',
+                'icon'=>'success',
+                'reload'=> 1
+            ];
+            return $this->json($response);
+        }
+        return $this->render('user/profile.html.twig', [
+            'form'=>$form->createView(),
+            'res'=>$res
         ]);
     }
 }

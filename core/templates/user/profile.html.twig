@@ -1,0 +1,16 @@
+{% extends 'user/profile_base.html.twig' %}
+
+{% block title %}پروفایل کاربری{% endblock %}
+
+{% block user_body %}
+    {% if res == 'change-password' %}
+        <div class="alert alert-success">کلمه عبور با موفقیت تغییر یافت.</div>
+    {% endif %}
+    <div class="form-group mb-2">
+        <label for="exampleInputEmail1">پست الکترونیکی</label>
+        <input disabled="disabled" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ app.user.email }}">
+        <small id="emailHelp" class="form-text text-muted">برای تغییر پست الکترونیکی با پشتیبانی تماس بگیرید.</small>
+    </div>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+{% endblock %}

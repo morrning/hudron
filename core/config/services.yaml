@@ -27,3 +27,7 @@ services:
 
     Jdate:
         class: App\Service\Jdate
+
+    EntityMGR:
+        class: App\Service\EntityMGR
+        arguments: [ "@doctrine.orm.entity_manager" ]

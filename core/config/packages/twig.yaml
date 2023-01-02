@@ -4,6 +4,7 @@ twig:
     globals:
         twigFunctions: "@twigFunctions"
         Jdate: "@Jdate"
+        EntityMGR: "@EntityMGR"
 when@test:
     twig:
         strict_variables: true
