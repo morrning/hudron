@@ -138,7 +138,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/app/user/profile/{res}', name: 'app_user_profile')]
-    public function app_user_profile($res = 'nothing',Request $request,EntityManagerInterface $entityManager): Response
+    public function app_user_profile(Request $request,EntityManagerInterface $entityManager,$res = 'nothing'): Response
     {
         $form = $this->createForm(UserEditType::class,$this->getUser(),[
             'action'=>$this->generateUrl('app_user_profile',['res'=>0]),
